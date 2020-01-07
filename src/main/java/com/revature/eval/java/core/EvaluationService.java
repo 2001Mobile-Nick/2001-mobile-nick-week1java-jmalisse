@@ -31,6 +31,13 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
+		
+		// tokenize string phrase
+		// substring the first letter of each token and append to the acronym String variable
+		// output result
+		
+		// additional implementation if there are more than three words could isolate 
+		// articles like A or The or Of and ignore these
 		return null;
 	}
 
@@ -247,6 +254,16 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// example includes
+		// "Wikipedia" would become "Ikipediaway"
+		
+		// (tokenize string phrase into a String array)
+		
+		// check for vowel or consonant at the first substring location
+		// if vowel - add "ay" to the end of the token
+		// if consonant, MOVE first letter to the end, and afterwards add "ay" sound
+		// append that first to the end of the token and then
 		return null;
 	}
 
@@ -267,6 +284,12 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
+		
+		// is input an integer? no, then ask again
+		// first is to determine length of the substring of numbers entered
+		// then, take each number in the integer - stored as a substring, and convert to its own int variable
+		// raise each to the value of (itself) ^ (number of digits) and add to the total sum
+		// if total sum == entered number then number is armstrong number
 		return false;
 	}
 
