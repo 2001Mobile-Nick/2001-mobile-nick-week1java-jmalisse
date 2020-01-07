@@ -3,9 +3,55 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class EvaluationService {
+	
+	public static Scanner scan = new Scanner(System.in);
 
+	public static void main(String[] args)
+	{
+		int choice = -1;
+		String inputLine = "";
+		boolean exit = false;
+		
+		do
+		{
+			// User read message for instruction
+			System.out.println("Question number to test (1-20 inclusive) \"e\" to exit: ");
+			
+			// Read line from console to string
+			inputLine = scan.nextLine();
+			
+			// if exit condition requested, break program
+			if(inputLine.equals("e"))
+			{
+				exit = true;
+				break;
+			}
+			/*
+			 * else { exit = false; }
+			 */
+
+			// Attempt to set integer for question switch to input value
+			try
+			{
+				choice = Integer.parseInt(inputLine);
+			}
+			// If invalid input, catch exception
+			catch(Exception InputMismatchException)
+			{
+				System.out.println("Input registered: " + inputLine);
+				System.out.println("Invalid input. Please use a number from 1-20.");
+			}
+
+
+			System.out.println();
+		}
+		while(!exit);
+
+	}
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
@@ -32,6 +78,12 @@ public class EvaluationService {
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
 		
+		System.out.println("Input string to tokenize:");
+
+		StringTokenizer token = new StringTokenizer(scan.nextLine());
+		
+		
+		//String completed = 
 		// tokenize string phrase
 		// substring the first letter of each token and append to the acronym String variable
 		// output result
