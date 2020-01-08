@@ -21,6 +21,8 @@ public class EvaluationService {
 
 	public static void main(String[] args)
 	{
+		// Create an instance of the evaluation service class for testing implementation
+		EvaluationService eval = new EvaluationService();
 		int choice = -1;
 		String inputLine = "";
 		boolean exit = false;
@@ -62,6 +64,91 @@ public class EvaluationService {
 			}
 			
 			System.out.println();
+			
+			switch(choice)
+			{
+			case 1:
+				// Call evalService Question 1
+				System.out.println("Input string for Question 1 (reversal): ");
+				eval.reverse(scan.nextLine());
+				break;
+			case 2:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 3:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 4:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 5:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 6:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 7:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 8:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 9:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 10:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 11:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 12:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 13:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 14:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 15:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 16:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 17:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 18:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 19:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			case 20:
+				// TODO implement question call
+				System.out.println("Question not yet implemented.");
+				break;
+			}
 		}
 		while(!exit);
 
@@ -73,12 +160,25 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) {
+	public String reverse(String string) 
+	{
+		// Init character array to size of passed string param length
 		char[] reversed = new char[string.length()];
+		
+		 /* For Loop - each iteration take the last letter of the string
+		 * and place it at the next index of the reversed char[]
+		 * Then increment index and decrement string param next char location
+		 */
 		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
-		return new String(reversed);
+
+		// Init a new String object with a char[] passed to the constructor
+		String reverseString = new String(reversed);
+		// Output reversed word for user to see
+		System.out.println(reverseString);
+		// Return appropriately reserved word for Unit Tests
+		return reverseString;
 	}
 
 	/**
@@ -89,14 +189,15 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String acronym(String phrase) {
+	public String acronym(String phrase)
+	{
 		// TODO Write an implementation for this method declaration
 		
 		System.out.println("Input string to tokenize:");
 
-		StringTokenizer token = new StringTokenizer(scan.nextLine());
-		
-		
+		StringTokenizer tokenLine = new StringTokenizer(scan.nextLine());
+		String[] tokens = new String[tokenLine.countTokens()];
+		System.out.println(tokenLine.countTokens());
 		//String completed = 
 		// tokenize string phrase
 		// substring the first letter of each token and append to the acronym String variable
