@@ -480,6 +480,11 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			
+			// expected test does not seem to include any number more than once so a basic binary sort tree is sufficient 
+			
+			// expected answer seems to be a sorted list of values of type T, as the given type during the function call
+			//  that said, all of the text examples are sorting integers - so only focus on that aspect right now
 			return 0;
 		}
 
