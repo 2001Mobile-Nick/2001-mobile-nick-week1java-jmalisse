@@ -73,8 +73,9 @@ public class EvaluationService {
 				eval.reverse(scan.nextLine());
 				break;
 			case 2:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 2
+				System.out.println("Input string to test tokenizer: ");
+				eval.acronym(scan.nextLine());
 				break;
 			case 3:
 				// TODO implement question call
@@ -191,16 +192,33 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase)
 	{
-		// TODO Write an implementation for this method declaration
-		
 		System.out.println("Input string to tokenize:");
-
-		StringTokenizer tokenLine = new StringTokenizer(scan.nextLine());
+		
+		// Delimiters used for StringTokenizer
+		String delims = " ";
+		
+		// Initialize new StringTokenizer with param phrase
+		StringTokenizer tokenLine = new StringTokenizer(phrase, delims, false);
+		
+		// Init new string array to size of the number of tokens
 		String[] tokens = new String[tokenLine.countTokens()];
-		System.out.println(tokenLine.countTokens());
-		//String completed = 
-		// tokenize string phrase
-		// substring the first letter of each token and append to the acronym String variable
+		
+		// Inform user of number of tokens found (user verification given known delimiters)
+		System.out.println("Number of tokens in given input: " + tokenLine.countTokens());
+		
+		// Initialize StringBuilder to an empty string
+		StringBuilder completed = new StringBuilder(""); 
+	
+		// For every token(string) in the array
+		for(int i = 0; i < tokenLine.countTokens(); i++)
+		{
+			// Append the first character, as an uppercase letter to the completed Acronym
+			// currently doing the entire world to check that the delimiters are working as intended
+			//System.out.println(tokenLine.nextToken(delims));
+			completed.append(tokenLine.nextToken());
+		}
+		
+		System.out.println("Acronym output: " + completed);
 		// output result
 		
 		// additional implementation if there are more than three words could isolate 
