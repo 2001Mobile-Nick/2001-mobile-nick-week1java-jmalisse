@@ -427,6 +427,16 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// expects a map of <string, ints> where the string is the word to count the occurrences of, then
+		// the int is the NUMBER of occurrences for that word within the phrase
+		
+		// so, would need to iterate through the phrase
+		// each word (could tokenize or string.split [ using string.split for practice ]) is checked to whether it already exists
+		// if it does NOT exist we add it to the map and set that value pair to 1
+		// if it DOES already exist we increment the value of the associated map location by 1
+		
+		// expected delimiters are \n (newline), spaces, and punctuation
 		return null;
 	}
 
