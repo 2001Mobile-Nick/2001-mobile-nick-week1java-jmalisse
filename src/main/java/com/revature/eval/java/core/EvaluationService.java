@@ -74,12 +74,38 @@ public class EvaluationService {
 				break;
 			case 2:
 				// Call evalService Question 2
-				System.out.println("Input string to test tokenizer: ");
+				System.out.println("Input string for Question 2 (tokenizer): ");
 				eval.acronym(scan.nextLine());
 				break;
 			case 3:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Case for setting triangle sides for manual test cases
+				System.out.println("Set three test sides for comparator.");
+				
+				// Init new triangle object
+				Triangle tri = new Triangle();
+				// Attempt to read in three double values, one into each of the sides
+				try
+				{
+					tri.setAllSidesABC(scan.nextDouble(), scan.nextDouble(), scan.nextDouble());
+				}
+				// Catch invalid input
+				catch (InputMismatchException ex)
+				{
+					System.out.println("Invalid input. Limit input to double values (decimal numbers).");
+					// Flush scanner
+					scan.nextLine();
+					// Break and retry
+					break;
+				}
+				
+				// Flush scanner (wasn't done at this successful point in code - better location for it I'm sure)
+				scan.nextLine();
+				
+				// After setting sides successfully attempt each of the three comparators and output the results
+				System.out.println("Equilateral -> " + (tri.isEquilateral() ? "YES" : "NO"));
+				System.out.println("Isosceles -> " + (tri.isIsosceles() ? "YES" : "NO"));
+				System.out.println("Scalene -> " + (tri.isScalene() ? "YES" : "NO"));
+
 				break;
 			case 4:
 				// TODO implement question call
@@ -269,31 +295,53 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isEquilateral() 
+		{
+			// Set a boolean to true
+			boolean equal = true;
+			
+			// so long as no side is unequal it returns true. Otherwise, immediately return false
+			if(this.getSideOne() != this.getSideTwo()) return false;
+			if(this.getSideTwo() != this.getSideThree()) return false;
+			if(this.getSideOne() != this.getSideThree()) return false;
+			
+			return equal;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+
+			// If any of the sides are the same then at least 2 sides are the same
+			// By the preferred definition of this instruction that means Isosceles
+			// So, any comparator returning true = affirmative
+			if(this.getSideOne() == this.getSideTwo()) return true;
+			
+			if(this.getSideTwo() == this.getSideThree()) return true;
+			
+			if(this.getSideOne() == this.getSideThree()) return true;
+						
 			return false;
 		}
 
-		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+		public boolean isScalene() 
+		{
+			// No sides can be the same size
+			// If any are immediately return false, otherwise return true
+			if(this.getSideOne() == this.getSideTwo()) return false;
+			
+			if(this.getSideTwo() == this.getSideThree()) return false;
+			
+			if(this.getSideOne() == this.getSideThree()) return false;
+			
+			return true;
 		}
 		
+		// Test method for menu input of sides
 		public void setAllSidesABC(double a, double b, double c)
 		{
-			boolean loop = true;
-			
-			while(true)
-			{
-				this.setSideOne(scan.nextDouble());
-				this.setSideTwo(scan.nextDouble());
-				this.setSideThree(scan.nextDouble());
-			}
+			this.setSideOne(a);
+			this.setSideTwo(b);
+			this.setSideThree(c);
+			System.out.println("Sides set.");
 		}
 	}
 
