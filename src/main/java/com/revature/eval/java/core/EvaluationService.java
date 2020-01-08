@@ -9,64 +9,57 @@ import java.util.StringTokenizer;
 
 class CustomException extends Exception // TODO research warning
 {
-	CustomException(String message)
-	{
+	CustomException(String message) {
 		super(message);
 	}
 }
 
 public class EvaluationService {
-	
+
 	public static Scanner scan = new Scanner(System.in);
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		// Create an instance of the evaluation service class for testing implementation
 		EvaluationService eval = new EvaluationService();
 		int choice = -1;
 		String inputLine = "";
 		boolean exit = false;
-		
-		do
-		{
+
+		do {
 			// User read message for instruction
 			System.out.println("Question number to test (1-20 inclusive) \"e\" to exit: ");
-			
+
 			// Read line from console to string
 			inputLine = scan.nextLine();
-			
+
 			// if exit condition requested, break program
-			if(inputLine.equals("e"))
-			{
+			if (inputLine.equals("e")) {
 				exit = true;
 				break;
 			}
 
 			// Attempt to set integer for question switch to input value
-			try
-			{
+			try {
 				// Set the input received to an Integer to compare to the question number
 				choice = Integer.parseInt(inputLine);
-				// If the choice is larger than 20 throw a CustomException (caught below, practice)
-				if((choice > 20) || (choice < 1))
+				// If the choice is larger than 20 throw a CustomException (caught below,
+				// practice)
+				if ((choice > 20) || (choice < 1))
 					throw new CustomException("Invalid input. Please use a number from 1-20.");
 			}
 			// If invalid input (characters or other type mismatch), catch exceptions
-			catch(InputMismatchException | NumberFormatException ex)
-			{
+			catch (InputMismatchException | NumberFormatException ex) {
 				System.out.println("Input registered: " + inputLine);
 				System.out.println("Invalid input. Please use a number from 1-20.");
 			}
 			// Custom exception handled for input too large
-			catch(CustomException ex)
-			{
+			catch (CustomException ex) {
 				System.out.println(ex.getMessage());
 			}
-			
+
 			System.out.println();
-			
-			switch(choice)
-			{
+
+			switch (choice) {
 			case 1:
 				// Call evalService Question 1
 				System.out.println("Input string for Question 1 (reversal): ");
@@ -78,30 +71,30 @@ public class EvaluationService {
 				eval.acronym(scan.nextLine());
 				break;
 			case 3:
-				// Case for setting triangle sides for manual test cases
+				// Call evalService Question 3
 				System.out.println("Set three test sides for comparator.");
-				
+
 				// Init new triangle object
 				Triangle tri = new Triangle();
 				// Attempt to read in three double values, one into each of the sides
-				try
-				{
+				try {
 					tri.setAllSidesABC(scan.nextDouble(), scan.nextDouble(), scan.nextDouble());
 				}
 				// Catch invalid input
-				catch (InputMismatchException ex)
-				{
+				catch (InputMismatchException ex) {
 					System.out.println("Invalid input. Limit input to double values (decimal numbers).");
 					// Flush scanner
 					scan.nextLine();
 					// Break and retry
 					break;
 				}
-				
-				// Flush scanner (wasn't done at this successful point in code - better location for it I'm sure)
+
+				// Flush scanner (wasn't done at this successful point in code - better location
+				// for it I'm sure)
 				scan.nextLine();
-				
-				// After setting sides successfully attempt each of the three comparators and output the results
+
+				// After setting sides successfully attempt each of the three comparators and
+				// output the results
 				System.out.println("Equilateral -> " + (tri.isEquilateral() ? "YES" : "NO"));
 				System.out.println("Isosceles -> " + (tri.isIsosceles() ? "YES" : "NO"));
 				System.out.println("Scalene -> " + (tri.isScalene() ? "YES" : "NO"));
@@ -124,8 +117,10 @@ public class EvaluationService {
 				System.out.println("Question not yet implemented.");
 				break;
 			case 8:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 8
+				System.out.println("Phrase to convert to pig Latin: ");
+				eval.toPigLatin(scan.nextLine());
+
 				break;
 			case 9:
 				// TODO implement question call
@@ -176,10 +171,10 @@ public class EvaluationService {
 				System.out.println("Question not yet implemented.");
 				break;
 			}
-		}
-		while(!exit);
+		} while (!exit);
 
 	}
+
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
@@ -187,16 +182,16 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) 
-	{
+	public String reverse(String string) {
 		// Init character array to size of passed string param length
 		char[] reversed = new char[string.length()];
-		
-		 /* For Loop - each iteration take the last letter of the string
-		 * and place it at the next index of the reversed char[]
-		 * Then increment index and decrement string param next char location
+
+		/*
+		 * For Loop - each iteration take the last letter of the string and place it at
+		 * the next index of the reversed char[] Then increment index and decrement
+		 * string param next char location
 		 */
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
 
@@ -216,34 +211,34 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String acronym(String phrase)
-	{
+	public String acronym(String phrase) {
 		System.out.println("Input string to tokenize:");
-			
+
 		// Initialize new StringTokenizer with param phrase
-		StringTokenizer tokenLine = new StringTokenizer(phrase," \t\n\r\f,.:;?![]'-", false);
-		
-		// Inform user of number of tokens found (user verification given known delimiters)
+		StringTokenizer tokenLine = new StringTokenizer(phrase, " \t\n\r\f,.:;?![]'-", false);
+
+		// Inform user of number of tokens found (user verification given known
+		// delimiters)
 		System.out.println("Number of tokens in given input: " + tokenLine.countTokens());
-		
+
 		// Initialize StringBuilder to an empty string
-		StringBuilder completed = new StringBuilder(""); 
-	
+		StringBuilder completed = new StringBuilder("");
+
 		// Loop, while any tokens remain in the tokenizer
 		// Tokenizer maintains own index of current tokens and it's place within them
-		while(tokenLine.hasMoreTokens())
-		{
+		while (tokenLine.hasMoreTokens()) {
 			// Append the first character, as an uppercase letter, to the completed Acronym
 			completed.append(tokenLine.nextToken().substring(0, 1).toUpperCase());
 		}
-		
+
 		// Output result to view
 		System.out.println("Acronym output: " + completed);
 
 		// Return completed check as a String object
 		return completed.toString();
-		
-		// Can also implement a version that uses String.split if more time is available before submission
+
+		// Can also implement a version that uses String.split if more time is available
+		// before submission
 	}
 
 	/**
@@ -295,16 +290,19 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() 
-		{
+		public boolean isEquilateral() {
 			// Set a boolean to true
 			boolean equal = true;
-			
-			// so long as no side is unequal it returns true. Otherwise, immediately return false
-			if(this.getSideOne() != this.getSideTwo()) return false;
-			if(this.getSideTwo() != this.getSideThree()) return false;
-			if(this.getSideOne() != this.getSideThree()) return false;
-			
+
+			// so long as no side is unequal it returns true. Otherwise, immediately return
+			// false
+			if (this.getSideOne() != this.getSideTwo())
+				return false;
+			if (this.getSideTwo() != this.getSideThree())
+				return false;
+			if (this.getSideOne() != this.getSideThree())
+				return false;
+
 			return equal;
 		}
 
@@ -313,31 +311,35 @@ public class EvaluationService {
 			// If any of the sides are the same then at least 2 sides are the same
 			// By the preferred definition of this instruction that means Isosceles
 			// So, any comparator returning true = affirmative
-			if(this.getSideOne() == this.getSideTwo()) return true;
-			
-			if(this.getSideTwo() == this.getSideThree()) return true;
-			
-			if(this.getSideOne() == this.getSideThree()) return true;
-						
+			if (this.getSideOne() == this.getSideTwo())
+				return true;
+
+			if (this.getSideTwo() == this.getSideThree())
+				return true;
+
+			if (this.getSideOne() == this.getSideThree())
+				return true;
+
 			return false;
 		}
 
-		public boolean isScalene() 
-		{
+		public boolean isScalene() {
 			// No sides can be the same size
 			// If any are immediately return false, otherwise return true
-			if(this.getSideOne() == this.getSideTwo()) return false;
-			
-			if(this.getSideTwo() == this.getSideThree()) return false;
-			
-			if(this.getSideOne() == this.getSideThree()) return false;
-			
+			if (this.getSideOne() == this.getSideTwo())
+				return false;
+
+			if (this.getSideTwo() == this.getSideThree())
+				return false;
+
+			if (this.getSideOne() == this.getSideThree())
+				return false;
+
 			return true;
 		}
-		
+
 		// Test method for menu input of sides
-		public void setAllSidesABC(double a, double b, double c)
-		{
+		public void setAllSidesABC(double a, double b, double c) {
 			this.setSideOne(a);
 			this.setSideTwo(b);
 			this.setSideThree(c);
@@ -362,14 +364,14 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		// break input word down to set of characters
 		// compare each character against set of character values
-		// 		dont need map, just if statement values
+		// dont need map, just if statement values
 		// add to sum total value on match
-		
+
 		// switch fastest/easiest?
-		
+
 		return 0;
 	}
 
@@ -406,13 +408,16 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		
-		// expected outcome is either a successfully formatted string of numbers matching the 10 digit format
+
+		// expected outcome is either a successfully formatted string of numbers
+		// matching the 10 digit format
 		// OR
 		// an exception thrown to match various invalid inputs
-		
-		// so, first build the method to handle formatting the 10 digit phone number by removing punctuation
-		// THEN, add in various sanitization and exception handling code to provide expected functionality based on the unit test
+
+		// so, first build the method to handle formatting the 10 digit phone number by
+		// removing punctuation
+		// THEN, add in various sanitization and exception handling code to provide
+		// expected functionality based on the unit test
 		return null;
 	}
 
@@ -427,15 +432,18 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		
-		// expects a map of <string, ints> where the string is the word to count the occurrences of, then
+
+		// expects a map of <string, ints> where the string is the word to count the
+		// occurrences of, then
 		// the int is the NUMBER of occurrences for that word within the phrase
-		
+
 		// so, would need to iterate through the phrase
-		// each word (could tokenize or string.split [ using string.split for practice ]) is checked to whether it already exists
+		// each word (could tokenize or string.split [ using string.split for practice
+		// ]) is checked to whether it already exists
 		// if it does NOT exist we add it to the map and set that value pair to 1
-		// if it DOES already exist we increment the value of the associated map location by 1
-		
+		// if it DOES already exist we increment the value of the associated map
+		// location by 1
+
 		// expected delimiters are \n (newline), spaces, and punctuation
 		return null;
 	}
@@ -480,11 +488,14 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			
-			// expected test does not seem to include any number more than once so a basic binary sort tree is sufficient 
-			
-			// expected answer seems to be a sorted list of values of type T, as the given type during the function call
-			//  that said, all of the text examples are sorting integers - so only focus on that aspect right now
+
+			// expected test does not seem to include any number more than once so a basic
+			// binary sort tree is sufficient
+
+			// expected answer seems to be a sorted list of values of type T, as the given
+			// type during the function call
+			// that said, all of the text examples are sorting integers - so only focus on
+			// that aspect right now
 			return 0;
 		}
 
@@ -522,16 +533,75 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		
+
 		// example includes
 		// "Wikipedia" would become "Ikipediaway"
+
+		// vowels a,e,i,o,u - sometimes Y -> special rule
+		// anything else is considered a consonant
+		// only exception to the rule is when the entire word contains no vowels BUT
+		// contains y---
+		// --- in which case y is then treated as a vowel for that word ( these examples
+		// never have y at the
+		// start of the words
+
+		// string.split method
+
+		// split the phrase string into a string array
+		// for every index in that array
+		// check if the word is entirely consonants - for this purpose alone treat y as
+		// a consonant
+		// if the word is entirely consonants - THEN we treat y as a vowel in this
+		// instance
+		// otherwise
+		// from the first letter as far through the string check if it begins with a
+		// vowel
+		// if it BEGINS with a vowel - simply add "ay" to the end
+		// if it DOES NOT begin with a vowel - substring the consonant cluster to the
+		// end, and
+		// then append "ay" -> bike - ike-b-ay -> ikebay
+		// floor - oor-fl-ay
+
+		String[] baseWords = string.split(" \t\n\r\f,.:;?![]'-");
+		String[] adjustedWords = new String[baseWords.length];
+		System.out.println("Number of words in this phrase: " + baseWords.length);
+		scan.hasNextLine();
+		System.out.println();
+
+		char[] consonants = "bcdfghjklmnpqrstvxz".toCharArray();
+		char[] vowels = "aeiouy".toCharArray();
 		
-		// (tokenize string phrase into a String array)
-		
-		// check for vowel or consonant at the first substring location
-		// if vowel - add "ay" to the end of the token
-		// if consonant, MOVE first letter to the end, and afterwards add "ay" sound
-		// append that first to the end of the token and then
+		// Iterate over every base word
+		for(int wordIndex = 0; wordIndex < baseWords.length; wordIndex++)
+		{
+			// In that word, check every character
+			for(int charIndex = 0; charIndex < baseWords[wordIndex].length(); charIndex++)
+			{
+				
+			}
+		}
+
+		/*
+		 * // check and adjust each word for(String word : baseWords) {
+		 * System.out.println(word);
+		 * 
+		 * // find the pig latin word // iterate over the word as characters char[]
+		 * chars = word.toCharArray();
+		 * 
+		 * // search for vowel first for(int i = 0; i < word.length(); i++) { // if
+		 * first letter of word is a vowel for(int j = 0; j < vowels.length; j++) {
+		 * if((word.charAt(0)) == (vowels[j])) { // vowel at start // adjusted[i]\ } }
+		 * 
+		 * 
+		 * for(int j = 0; j < vowels.length; j++) { // if each letter is tested as a
+		 * vowel if(word.charAt(i) == (vowels[j])) { adjusted[i] = word.substring(i);
+		 * adjusted[i].concat(word.substring(i) + "ay"); } }
+		 * 
+		 * }
+		 * 
+		 * // add to adjusted, in order }
+		 */
+
 		return null;
 	}
 
@@ -552,11 +622,13 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		
+
 		// is input an integer? no, then ask again
 		// first is to determine length of the substring of numbers entered
-		// then, take each number in the integer - stored as a substring, and convert to its own int variable
-		// raise each to the value of (itself) ^ (number of digits) and add to the total sum
+		// then, take each number in the integer - stored as a substring, and convert to
+		// its own int variable
+		// raise each to the value of (itself) ^ (number of digits) and add to the total
+		// sum
 		// if total sum == entered number then number is armstrong number
 		return false;
 	}
