@@ -406,6 +406,13 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// expected outcome is either a successfully formatted string of numbers matching the 10 digit format
+		// OR
+		// an exception thrown to match various invalid inputs
+		
+		// so, first build the method to handle formatting the 10 digit phone number by removing punctuation
+		// THEN, add in various sanitization and exception handling code to provide expected functionality based on the unit test
 		return null;
 	}
 
