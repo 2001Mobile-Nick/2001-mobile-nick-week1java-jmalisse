@@ -193,15 +193,9 @@ public class EvaluationService {
 	public String acronym(String phrase)
 	{
 		System.out.println("Input string to tokenize:");
-		
-		// Delimiters used for StringTokenizer
-		String delims = " ";
-		
+			
 		// Initialize new StringTokenizer with param phrase
-		StringTokenizer tokenLine = new StringTokenizer(phrase, delims, false);
-		
-		// Init new string array to size of the number of tokens
-		String[] tokens = new String[tokenLine.countTokens()];
+		StringTokenizer tokenLine = new StringTokenizer(phrase," \t\n\r\f,.:;?![]'-", false);
 		
 		// Inform user of number of tokens found (user verification given known delimiters)
 		System.out.println("Number of tokens in given input: " + tokenLine.countTokens());
@@ -209,21 +203,21 @@ public class EvaluationService {
 		// Initialize StringBuilder to an empty string
 		StringBuilder completed = new StringBuilder(""); 
 	
-		// For every token(string) in the array
-		for(int i = 0; i < tokenLine.countTokens(); i++)
+		// Loop, while any tokens remain in the tokenizer
+		// Tokenizer maintains own index of current tokens and it's place within them
+		while(tokenLine.hasMoreTokens())
 		{
-			// Append the first character, as an uppercase letter to the completed Acronym
-			// currently doing the entire world to check that the delimiters are working as intended
-			//System.out.println(tokenLine.nextToken(delims));
-			completed.append(tokenLine.nextToken());
+			// Append the first character, as an uppercase letter, to the completed Acronym
+			completed.append(tokenLine.nextToken().substring(0, 1).toUpperCase());
 		}
 		
+		// Output result to view
 		System.out.println("Acronym output: " + completed);
-		// output result
+
+		// Return completed check as a String object
+		return completed.toString();
 		
-		// additional implementation if there are more than three words could isolate 
-		// articles like A or The or Of and ignore these
-		return null;
+		// Can also implement a version that uses String.split if more time is available before submission
 	}
 
 	/**
