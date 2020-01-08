@@ -620,7 +620,7 @@ public class EvaluationService {
 				
 			}
 			
-			// comment for commit
+			// comment for commit, user credentials cleaned?
 			
 			if(resolved) break;
 		}
