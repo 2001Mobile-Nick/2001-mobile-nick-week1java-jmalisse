@@ -283,7 +283,18 @@ public class EvaluationService {
 			// TODO Write an implementation for this method declaration
 			return false;
 		}
-
+		
+		public void setAllSidesABC(double a, double b, double c)
+		{
+			boolean loop = true;
+			
+			while(true)
+			{
+				this.setSideOne(scan.nextDouble());
+				this.setSideTwo(scan.nextDouble());
+				this.setSideThree(scan.nextDouble());
+			}
+		}
 	}
 
 	/**
