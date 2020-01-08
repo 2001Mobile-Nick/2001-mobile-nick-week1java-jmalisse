@@ -597,6 +597,8 @@ public class EvaluationService {
 					break;
 				}
 			}
+			
+			if(resolved) break;
 			// Check consonants
 
 			int consonantClusterLength = 0;
