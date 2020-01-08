@@ -362,6 +362,14 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// break input word down to set of characters
+		// compare each character against set of character values
+		// 		dont need map, just if statement values
+		// add to sum total value on match
+		
+		// switch fastest/easiest?
+		
 		return 0;
 	}
 
