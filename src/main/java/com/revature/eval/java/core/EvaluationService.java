@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-class CustomException extends Exception
+class CustomException extends Exception // TODO research warning
 {
 	CustomException(String message)
 	{
