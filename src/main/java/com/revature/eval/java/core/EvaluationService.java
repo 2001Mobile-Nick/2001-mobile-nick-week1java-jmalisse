@@ -1,10 +1,19 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+
+class CustomException extends Exception
+{
+	CustomException(String message)
+	{
+		super(message);
+	}
+}
 
 public class EvaluationService {
 	
@@ -30,23 +39,28 @@ public class EvaluationService {
 				exit = true;
 				break;
 			}
-			/*
-			 * else { exit = false; }
-			 */
 
 			// Attempt to set integer for question switch to input value
 			try
 			{
+				// Set the input received to an Integer to compare to the question number
 				choice = Integer.parseInt(inputLine);
+				// If the choice is larger than 20 throw a CustomException (caught below, practice)
+				if((choice > 20) || (choice < 1))
+					throw new CustomException("Invalid input. Please use a number from 1-20.");
 			}
-			// If invalid input, catch exception
-			catch(Exception InputMismatchException)
+			// If invalid input (characters or other type mismatch), catch exceptions
+			catch(InputMismatchException | NumberFormatException ex)
 			{
 				System.out.println("Input registered: " + inputLine);
 				System.out.println("Invalid input. Please use a number from 1-20.");
 			}
-
-
+			// Custom exception handled for input too large
+			catch(CustomException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
+			
 			System.out.println();
 		}
 		while(!exit);
