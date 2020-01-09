@@ -110,8 +110,9 @@ public class EvaluationService {
 				System.out.println("Question not yet implemented.");
 				break;
 			case 5:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 5
+				System.out.println("Input phone number to clean: ");
+				eval.cleanPhoneNumber(scan.nextLine());
 				break;
 			case 6:
 				// TODO implement question call
@@ -468,18 +469,25 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		// change input string to remove all punctuation
+		String numbers = string.replaceAll("\\p{Punct}|\\s","");
+				
+		System.out.println("Numbers received: [" + numbers + "]");
+		
+		// expected outcome is either a successfully formatted string of numbers that is 11 or 10 digits long
+		if(numbers.length() > 11)
+		{
+			System.out.println("throw on too many after removals");
+			throw new IllegalArgumentException();
+		}
+		// or there are non-digit characters which need to throw an exception				
+		if(Pattern.matches("[0-9]+", numbers) == false)
+		{
+			throw new IllegalArgumentException();
+		}
 
-		// expected outcome is either a successfully formatted string of numbers
-		// matching the 10 digit format
-		// OR
-		// an exception thrown to match various invalid inputs
-
-		// so, first build the method to handle formatting the 10 digit phone number by
-		// removing punctuation
-		// THEN, add in various sanitization and exception handling code to provide
-		// expected functionality based on the unit test
-		return null;
+		return numbers;
 	}
 
 	/**
