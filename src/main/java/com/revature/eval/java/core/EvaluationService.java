@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class CustomException extends Exception // TODO research warning
 {
@@ -561,140 +563,148 @@ public class EvaluationService {
 		// end, and
 		// then append "ay" -> bike - ike-b-ay -> ikebay
 		// floor - oor-fl-ay
+		
 
-		//String[] baseWords = string.split(" \t\n\r\f,.:;?![]'-");
-		//String[] adjustedWords = new String[baseWords.length];
+		
+		
+		String[] baseWords = string.split("\\W+");
+		String[] adjustedWords = new String[baseWords.length];
+		
+/*		Pattern pattern = Pattern.compile("\\w+");
+		Matcher matcher = pattern.matcher(string);
+		
+		while(matcher.find())
+		{
+			
+		}*/
 		
 		StringBuilder adjustedWord = new StringBuilder("");
 		
-		System.out.println("Number of letters in this word: " + string.length());
-
-		System.out.println();
-
 		char[] consonants = "bcdfghjklmnpqrstvxz".toCharArray();
 		char[] vowels = "aeiouy".toCharArray();
 		
 		boolean resolved = false;
-		// check single word
-		for(int vowelIndex = 0; vowelIndex < vowels.length; vowelIndex++)
+		int adjustedWordsIndex = 0;
+		
+		// Checking all words
+		for(String word : baseWords)
 		{
-			// Check Y as first letter (treated as a consonant)
-			if(string.charAt(0) == vowels[5])
+			resolved = false;
+			System.out.println("Number of letters in this word: " + word.length());
+
+			System.out.println();
+			// check each single word
+			for(int vowelIndex = 0; vowelIndex < vowels.length; vowelIndex++)
 			{
-				// first letter of word is vowel
-				adjustedWord.append(string.substring(1));
-				adjustedWord.append(string.substring(0,1) + "ay");
-				resolved = true;
-				break;
-			}
-			// Check Qu as first letter pair
-			if((string.charAt(0) == consonants[12]) && (string.length() > 1) && (string.charAt(1) == vowels[4]))
-			{
-				// Qu edge case
-				adjustedWord.append(string.substring(2));
-				adjustedWord.append(string.substring(0,2) + "ay");
-				resolved = true;
-				break;
-			}
-			
-			// Check other vowels
-			for(Character vowel : vowels)
-			{
-				if(string.charAt(0) == vowel)
+				// Check Y as first letter (treated as a consonant)
+				if(word.charAt(0) == vowels[5])
 				{
-					adjustedWord.append(string + "ay");
+					// first letter of word is vowel
+					adjustedWord.append(word.substring(1));
+					adjustedWord.append(word.substring(0,1) + "ay");
 					resolved = true;
 					break;
 				}
-			}
-			
-			if(resolved) break;
-			
-			// Check consonants
-			int consonantClusterLength = 0;
-			
-			// For each letter in the word to check
-			for(int letterIndex = 0; letterIndex < string.length(); letterIndex++)
-			{
-				// For each consonant to compare it to
-				for(int consonantIndex = 0; consonantIndex < consonants.length; consonantIndex++)
+				// Check Qu as first letter pair
+				if((word.charAt(0) == consonants[12]) && (word.length() > 1) && (word.charAt(1) == vowels[4]))
 				{
-					// If the letter is a consonant - which the FIRST letter should be at this point
-					if(string.charAt(letterIndex) == consonants[consonantIndex])
-					{
-						consonantClusterLength++;
-						System.out.println("Consonant found!");
-						
-						// Consonant identified - break current letter loop
-						break;
-						// TODO check the remainder of letters until a vowel is reached - at which point stop incrementing the consonantClusterLength - then substring the string param from beginning to the length of the cluster to obtain the starting cluster, then proceed like normal
-					}
+					// Qu edge case
+					adjustedWord.append(word.substring(2));
+					adjustedWord.append(word.substring(0,2) + "ay");
+					resolved = true;
+					break;
 				}
 				
-				// For each vowel to compare it to
-				for(int secondVowelIndex = 0; secondVowelIndex < vowels.length; secondVowelIndex++)
+				// Check other vowels
+				for(Character vowel : vowels)
 				{
-					// After a consonant is found, there may be more consonants
-					// Incrementing the consonantClusterLength will suffice to count the string.substring for finding that cluster
-					// And when there are no more consonants the first vowel found will be the end index for the substring
-					if(string.charAt(letterIndex) == vowels[secondVowelIndex])
+					if(word.charAt(0) == vowel)
 					{
-						adjustedWord.append(string.substring(consonantClusterLength));
-						adjustedWord.append(string.substring(0, consonantClusterLength) + "ay");
+						adjustedWord.append(word + "ay");
 						resolved = true;
 						break;
 					}
 				}
+				
+				if(resolved) break;
+				
+				// Check consonants
+				int consonantClusterLength = 0;
+				
+				// For each letter in the word to check
+				for(int letterIndex = 0; letterIndex < word.length(); letterIndex++)
+				{
+					// For each consonant to compare it to
+					for(int consonantIndex = 0; consonantIndex < consonants.length; consonantIndex++)
+					{
+						// If the letter is a consonant - which the FIRST letter should be at this point
+						if(word.charAt(letterIndex) == consonants[consonantIndex])
+						{
+							consonantClusterLength++;
+							System.out.println("Consonant found!");
+							
+							// Consonant identified - break current letter loop
+							break;
+							// TODO check the remainder of letters until a vowel is reached - at which point stop incrementing the consonantClusterLength - then substring the string param from beginning to the length of the cluster to obtain the starting cluster, then proceed like normal
+						}
+					}
+					
+					// For each vowel to compare it to
+					for(int secondVowelIndex = 0; secondVowelIndex < vowels.length; secondVowelIndex++)
+					{
+						// After a consonant is found, there may be more consonants
+						// Incrementing the consonantClusterLength will suffice to count the string.substring for finding that cluster
+						// And when there are no more consonants the first vowel found will be the end index for the substring
+						if(word.charAt(letterIndex) == vowels[secondVowelIndex])
+						{
+							adjustedWord.append(word.substring(consonantClusterLength));
+							adjustedWord.append(word.substring(0, consonantClusterLength) + "ay");
+							resolved = true;
+							break;
+						}
+					}
+					if(resolved) break;
+				}
+				
+				// comment for commit, user credentials cleaned?
+				
 				if(resolved) break;
 			}
 			
-			// comment for commit, user credentials cleaned?
 			
-			if(resolved) break;
+			System.out.println("adjusted word: " + adjustedWord);
+			
+			// Add adjustedWord to the array and increment index counter
+			adjustedWords[adjustedWordsIndex] = adjustedWord.toString();
+			adjustedWordsIndex++;
+		
+			// "reset" the adjustedWord SB
+			adjustedWord.setLength(0);
 		}
 		
-		/*
-		 * // Iterate over every base word for(int wordIndex = 0; wordIndex <
-		 * baseWords.length; wordIndex++) { // In that word, check every character
-		 * 
-		 * // Check vowel in [0] - if vowel just handle // if not vowel - treat as
-		 * consonant word and find the word cluster to move // which is then taking the
-		 * start index as 0, but the end index as the first vowel discovered // whatever
-		 * substring given by that is the consonant cluster // then hold that substring
-		 * and take the remainder of the word and set // to the adjustedWords index
-		 * location that matches the baseWords index currently operating on // last,
-		 * concat the substring consonant cluster, and then concat "ay" for(int
-		 * charIndex = 0; charIndex < baseWords[wordIndex].length(); charIndex++) { int
-		 * consonantClusterLength = 0; for(int vowelIndex = 0; vowelIndex <
-		 * vowels.length; vowelIndex++) { // if the first letter in the current word is
-		 * a vowel - any vowel if(baseWords[wordIndex].charAt(0) ==
-		 * (vowels[vowelIndex])) { // vowel in first } // otherwise start is a consonant
-		 * cluster else { consonantClusterLength++; } } } }
-		 */
+		
+		// Assemble final word for submission
+		StringBuilder finalWord = new StringBuilder();
+		
+		int wordCount = adjustedWords.length;
+		int countMod = 0;
+		for(String adjusted : adjustedWords)
+		{
+			// Add the word
+			finalWord.append(adjusted.toString());
+			
+			// If the count is currently not >= the countMod
+			if((countMod) < (wordCount - 1))
+			{
+				countMod++;
+				finalWord.append(" ");
+			}
+			else
+				break;
 
-		/*
-		 * // check and adjust each word for(String word : baseWords) {
-		 * System.out.println(word);
-		 * 
-		 * // find the pig latin word // iterate over the word as characters char[]
-		 * chars = word.toCharArray();
-		 * 
-		 * // search for vowel first for(int i = 0; i < word.length(); i++) { // if
-		 * first letter of word is a vowel for(int j = 0; j < vowels.length; j++) {
-		 * if((word.charAt(0)) == (vowels[j])) { // vowel at start // adjusted[i]\ } }
-		 * 
-		 * 
-		 * for(int j = 0; j < vowels.length; j++) { // if each letter is tested as a
-		 * vowel if(word.charAt(i) == (vowels[j])) { adjusted[i] = word.substring(i);
-		 * adjusted[i].concat(word.substring(i) + "ay"); } }
-		 * 
-		 * }
-		 * 
-		 * // add to adjusted, in order }
-		 */
-		System.out.println("adjusted word: " + adjustedWord);
-
-		return adjustedWord.toString();
+		}
+		
+		return finalWord.toString();
 	}
 
 	/**
