@@ -587,6 +587,16 @@ public class EvaluationService {
 				resolved = true;
 				break;
 			}
+			// Check Qu as first letter pair
+			if((string.charAt(0) == consonants[12]) && (string.length() > 1) && (string.charAt(1) == vowels[4]))
+			{
+				// Qu edge case
+				adjustedWord.append(string.substring(2));
+				adjustedWord.append(string.substring(0,2) + "ay");
+				resolved = true;
+				break;
+			}
+			
 			// Check other vowels
 			for(Character vowel : vowels)
 			{
@@ -599,9 +609,10 @@ public class EvaluationService {
 			}
 			
 			if(resolved) break;
+			
 			// Check consonants
-
 			int consonantClusterLength = 0;
+			
 			// For each letter in the word to check
 			for(int letterIndex = 0; letterIndex < string.length(); letterIndex++)
 			{
@@ -614,10 +625,27 @@ public class EvaluationService {
 						consonantClusterLength++;
 						System.out.println("Consonant found!");
 						
-						// TODO check the remainder of letters until a vowel is reached - at which point stop incrementing the consonantClusterLEngth - then substring the string param from beginning to the length of the cluster to obtain the starting cluster, then proceed like normal
+						// Consonant identified - break current letter loop
+						break;
+						// TODO check the remainder of letters until a vowel is reached - at which point stop incrementing the consonantClusterLength - then substring the string param from beginning to the length of the cluster to obtain the starting cluster, then proceed like normal
 					}
 				}
 				
+				// For each vowel to compare it to
+				for(int secondVowelIndex = 0; secondVowelIndex < vowels.length; secondVowelIndex++)
+				{
+					// After a consonant is found, there may be more consonants
+					// Incrementing the consonantClusterLength will suffice to count the string.substring for finding that cluster
+					// And when there are no more consonants the first vowel found will be the end index for the substring
+					if(string.charAt(letterIndex) == vowels[secondVowelIndex])
+					{
+						adjustedWord.append(string.substring(consonantClusterLength));
+						adjustedWord.append(string.substring(0, consonantClusterLength) + "ay");
+						resolved = true;
+						break;
+					}
+				}
+				if(resolved) break;
 			}
 			
 			// comment for commit, user credentials cleaned?
