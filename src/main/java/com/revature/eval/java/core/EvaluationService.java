@@ -35,13 +35,15 @@ public class EvaluationService {
 			inputLine = scan.nextLine();
 
 			// if exit condition requested, break program
-			if (inputLine.equals("e")) {
+			if (inputLine.equals("e"))
+			{
 				exit = true;
 				break;
 			}
 
 			// Attempt to set integer for question switch to input value
-			try {
+			try
+			{
 				// Set the input received to an Integer to compare to the question number
 				choice = Integer.parseInt(inputLine);
 				// If the choice is larger than 20 throw a CustomException (caught below,
@@ -50,7 +52,8 @@ public class EvaluationService {
 					throw new CustomException("Invalid input. Please use a number from 1-20.");
 			}
 			// If invalid input (characters or other type mismatch), catch exceptions
-			catch (InputMismatchException | NumberFormatException ex) {
+			catch (InputMismatchException | NumberFormatException ex)
+			{
 				System.out.println("Input registered: " + inputLine);
 				System.out.println("Invalid input. Please use a number from 1-20.");
 			}
@@ -366,15 +369,71 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-
+		
+		// note that the expected input may contain capital letters, which need to be recieved as lowercase .tolowercase()
+		
+		StringBuilder input = new StringBuilder(string.toLowerCase());
+		
+		String onePoint = "aeioulnrst";
+		String twoPoint = "dg";
+		String threePoint = "bcmp";
+		String fourPoint = "fhvwy";
+		String fivePoint = "k";
+		String eightPoint = "jx";
+		String tenPoint = "qz";
+		
+		int pointTotal = 0;
+		
+		for(int index = 0; index < input.length(); index++)
+		{
+			String check = input.toString().substring(index, index + 1);
+			// for each letter in the input
+			
+			// Easily readable version of the comparison but wastes lines.
+			if(onePoint.contains(check))
+			{
+				pointTotal += 1;
+				continue;
+			}
+			else if(twoPoint.contains(check))
+			{
+				pointTotal += 2;
+				continue;
+			}
+			else if(threePoint.contains(check))
+			{
+				pointTotal += 3;
+				continue;
+			}
+			else if(fourPoint.contains(check))
+			{
+				pointTotal += 4;
+				continue;
+			}
+			else if(fivePoint.contains(check))
+			{
+				pointTotal += 5;
+				continue;
+			}
+			else if(eightPoint.contains(check))
+			{
+				pointTotal += 8;
+				continue;
+			}
+			else if(tenPoint.contains(check))
+			{
+				pointTotal += 10;
+				continue;
+			}
+		}
 		// break input word down to set of characters
 		// compare each character against set of character values
 		// dont need map, just if statement values
 		// add to sum total value on match
-
+		
 		// switch fastest/easiest?
-
-		return 0;
+		
+		return pointTotal;
 	}
 
 	/**
@@ -436,12 +495,10 @@ public class EvaluationService {
 		// TODO Write an implementation for this method declaration
 
 		// expects a map of <string, ints> where the string is the word to count the
-		// occurrences of, then
-		// the int is the NUMBER of occurrences for that word within the phrase
+		// occurrences of, then the int is the NUMBER of occurrences for that word within the phrase
 
 		// so, would need to iterate through the phrase
-		// each word (could tokenize or string.split [ using string.split for practice
-		// ]) is checked to whether it already exists
+		// each word (could tokenize or string.split [ using string.split for practice]) is checked to whether it already exists
 		// if it does NOT exist we add it to the map and set that value pair to 1
 		// if it DOES already exist we increment the value of the associated map
 		// location by 1
@@ -513,7 +570,6 @@ public class EvaluationService {
 		public void setSortedList(List<T> sortedList) {
 			this.sortedList = sortedList;
 		}
-
 	}
 
 	/**
@@ -534,11 +590,8 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-
-		// example includes
-		// "Wikipedia" would become "Ikipediaway"
-
+		// example "Wikipedia" would become "Ikipediaway"
+		
 		// vowels a,e,i,o,u - sometimes Y -> special rule
 		// anything else is considered a consonant
 		// only exception to the rule is when the entire word contains no vowels BUT
@@ -546,9 +599,9 @@ public class EvaluationService {
 		// --- in which case y is then treated as a vowel for that word ( these examples
 		// never have y at the
 		// start of the words
-
+		
 		// string.split method
-
+		
 		// split the phrase string into a string array
 		// for every index in that array
 		// check if the word is entirely consonants - for this purpose alone treat y as
@@ -564,19 +617,8 @@ public class EvaluationService {
 		// then append "ay" -> bike - ike-b-ay -> ikebay
 		// floor - oor-fl-ay
 		
-
-		
-		
 		String[] baseWords = string.split("\\W+");
 		String[] adjustedWords = new String[baseWords.length];
-		
-/*		Pattern pattern = Pattern.compile("\\w+");
-		Matcher matcher = pattern.matcher(string);
-		
-		while(matcher.find())
-		{
-			
-		}*/
 		
 		StringBuilder adjustedWord = new StringBuilder("");
 		
@@ -591,7 +633,7 @@ public class EvaluationService {
 		{
 			resolved = false;
 			System.out.println("Number of letters in this word: " + word.length());
-
+			
 			System.out.println();
 			// check each single word
 			for(int vowelIndex = 0; vowelIndex < vowels.length; vowelIndex++)
@@ -677,11 +719,10 @@ public class EvaluationService {
 			// Add adjustedWord to the array and increment index counter
 			adjustedWords[adjustedWordsIndex] = adjustedWord.toString();
 			adjustedWordsIndex++;
-		
+			
 			// "reset" the adjustedWord SB
 			adjustedWord.setLength(0);
 		}
-		
 		
 		// Assemble final word for submission
 		StringBuilder finalWord = new StringBuilder();
