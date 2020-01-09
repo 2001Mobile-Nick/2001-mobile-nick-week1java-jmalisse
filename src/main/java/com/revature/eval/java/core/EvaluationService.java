@@ -1039,6 +1039,9 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		// subtract 9? what is that and how to use with luhn formula?
+		
 		return false;
 	}
 
