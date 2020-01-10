@@ -1164,9 +1164,39 @@ public class EvaluationService {
 		// loop with multiple args
 		Integer formulaSum = 0;
 		
+		System.out.println("Adjusted: " + adjusted.toString());
+		
+		String lastDigit = adjusted.substring(adjusted.length() - 1, adjusted.length());
+		
+		// check last digit for invalid input
+		if(!(lastDigit.matches("[0-9]+"))) 
+		{	
+			if(!(lastDigit.equals("X".toString())))
+			{
+				return false;
+			}
+		}
+		
 		for(int i = 0, j = 10; i < adjusted.length(); i++, j--)
 		{
-			formulaSum += Integer.valueOf(adjusted.substring(i, i+1)) * j;
+			int charac = adjusted.lastIndexOf("X");
+
+			String currentDigit = adjusted.substring(i, i + 1);
+			
+			if(currentDigit.matches("[^0-9]"))
+			{
+				System.out.println("Invalid character detected.");
+				return false;
+			}
+			
+			if(i == charac)
+			{
+				formulaSum += Integer.valueOf(10 * j);
+			}
+			else
+			{
+				formulaSum += Integer.valueOf(adjusted.substring(i, i+1)) * j;	
+			}
 		}
 		
 		if((formulaSum % 11) == 0)
