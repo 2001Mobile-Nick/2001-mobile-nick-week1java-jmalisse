@@ -155,8 +155,9 @@ public class EvaluationService {
 				AtbashCipher.encode(scan.nextLine());
 				break;
 			case 14:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 14 decode
+				System.out.println("Input string to decode: ");
+				AtbashCipher.decode(scan.nextLine());
 				break;
 			case 15:
 				// TODO implement question call
@@ -1087,7 +1088,6 @@ public class EvaluationService {
 					continue;
 				}
 				
-				
 				String start = adjusted.substring(i-1,i);
 				String finish = encodeConversionTable.get(start);
 				encoded.append(finish);
@@ -1107,8 +1107,20 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			loadDecodeTable();
+						
+			// remove whitespace
+			StringBuilder adjusted = new StringBuilder(string.replaceAll("\\s",""));
+			// then transpose
+			StringBuilder decoded = new StringBuilder("");
+			for(int i = 0; i < adjusted.length(); i++)
+			{
+				String start = adjusted.substring(i,i+1);
+				String finish = decodeConversionTable.get(start);
+				decoded.append(finish);
+			}
+			
+			return decoded.toString();
 		}
 	}
 
