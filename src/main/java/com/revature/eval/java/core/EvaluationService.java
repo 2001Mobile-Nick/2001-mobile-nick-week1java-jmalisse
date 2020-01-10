@@ -1031,6 +1031,17 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
+		
+		private static Map<String, String> conversionTable = new HashMap<String, String>();
+		// load frontTable with forwardConversion strings
+		{ 	
+			conversionTable.put("A", "Z");  conversionTable.put("A" , "Z"); conversionTable.put("B" , "Y"); conversionTable.put("C" , "X"); 
+			conversionTable.put("D" , "W"); conversionTable.put("E" , "V"); conversionTable.put("F" , "U"); conversionTable.put("G" , "T");
+			conversionTable.put("H" , "S"); conversionTable.put("I" , "R"); conversionTable.put("J" , "Q"); conversionTable.put("K" , "P"); 
+			conversionTable.put("L" , "O"); conversionTable.put("M" , "N"); conversionTable.put("N" , "M"); conversionTable.put("O" , "L"); conversionTable.put("P" , "K"); 
+			conversionTable.put("Q" , "J"); conversionTable.put("R" , "I"); conversionTable.put("S" , "H"); conversionTable.put("T" , "G"); conversionTable.put("U" , "F"); 
+			conversionTable.put("V" , "E"); conversionTable.put("W" , "D"); conversionTable.put("X" , "C"); conversionTable.put("Y" , "B"); conversionTable.put("Z" , "A");
+		}
 
 		/**
 		 * Question 13
