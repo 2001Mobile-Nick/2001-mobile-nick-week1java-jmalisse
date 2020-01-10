@@ -67,7 +67,8 @@ public class EvaluationService {
 
 			System.out.println();
 
-			switch (choice) {
+			switch (choice) 
+			{
 			case 1:
 				// Call evalService Question 1
 				System.out.println("Input string for Question 1 (reversal): ");
@@ -130,7 +131,6 @@ public class EvaluationService {
 				// Call evalService Question 8
 				System.out.println("Phrase to convert to pig Latin: ");
 				eval.toPigLatin(scan.nextLine());
-
 				break;
 			case 9:
 				// Call evalService Question 9
@@ -161,7 +161,8 @@ public class EvaluationService {
 				break;
 			case 15:
 				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				System.out.println("Input number set to test is valid ISBN format: ");
+				eval.isValidIsbn(scan.nextLine());
 				break;
 			case 16:
 				// TODO implement question call
@@ -1152,8 +1153,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		// remove punctuation
+		StringBuilder adjusted = new StringBuilder(string.replaceAll("\\s|\\p{Punct}",""));
+		// count digits = exactly 10
+		if(adjusted.length() != 10)
+		{
+			throw new IllegalArgumentException();
+		}
+		// multiply each digit in order of 1st-10,2nd-9,3rd-8, etc
+		// loop with multiple args
+		Integer formulaSum = 0;
+		
+		for(int i = 0, j = 10; i < adjusted.length(); i++, j--)
+		{
+			formulaSum += Integer.valueOf(adjusted.substring(i, i+1)) * j;
+		}
+		
+		if((formulaSum % 11) == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 
 	/**
