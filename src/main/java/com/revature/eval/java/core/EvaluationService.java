@@ -1115,6 +1115,11 @@ public class EvaluationService {
 			StringBuilder decoded = new StringBuilder("");
 			for(int i = 0; i < adjusted.length(); i++)
 			{
+				if(adjusted.substring(i, i+1).matches("[0-9]"))
+				{
+					decoded.append(adjusted.substring(i, i+1));
+					continue;
+				}
 				String start = adjusted.substring(i,i+1);
 				String finish = decodeConversionTable.get(start);
 				decoded.append(finish);
