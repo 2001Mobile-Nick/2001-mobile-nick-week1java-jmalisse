@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
@@ -115,8 +116,9 @@ public class EvaluationService {
 				eval.cleanPhoneNumber(scan.nextLine());
 				break;
 			case 6:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 6
+				eval.wordCount(scan.nextLine());
+				System.out.println("Input string to MAP: ");
 				break;
 			case 7:
 				// TODO implement question call
@@ -501,19 +503,34 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-
 		// expects a map of <string, ints> where the string is the word to count the
 		// occurrences of, then the int is the NUMBER of occurrences for that word within the phrase
+		Map<String, Integer> received = new HashMap<String, Integer>();
+		String[] strings = string.split("\\W+");
+		
+		for(String word : strings)
+		{
+			// check if NOT already there
+			if(!(received.containsKey(word)))
+			{
+				System.out.println("Word [" + word + "] NOT already in the Map. Placing into map.");
+				received.put(word, 1);
+			}
+			else
+			{
+				// IS already there
+				System.out.println("Word [" + word + "] already found in map.");
+				// need to find the value stored for the key (word)
+				// and increment by 1
+				int numberAlreadyContained = received.get(word);
+				System.out.println("Current value: " + numberAlreadyContained);
+				received.replace(word, numberAlreadyContained + 1);
+				System.out.println("Incremented value by one.");
+			}
 
-		// so, would need to iterate through the phrase
-		// each word (could tokenize or string.split [ using string.split for practice]) is checked to whether it already exists
-		// if it does NOT exist we add it to the map and set that value pair to 1
-		// if it DOES already exist we increment the value of the associated map
-		// location by 1
+		}
 
-		// expected delimiters are \n (newline), spaces, and punctuation
-		return null;
+		return received;
 	}
 
 	/**
