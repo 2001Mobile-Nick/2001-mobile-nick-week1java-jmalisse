@@ -1076,6 +1076,18 @@ public class EvaluationService {
 			
 			for(int i = 1; i <= adjusted.length(); i++)
 			{
+				// If digit found
+				if(adjusted.substring(i-1, i).matches("[0-9]"))
+				{
+					encoded.append(adjusted.substring(i-1, i));
+					if(i % 5 == 0)
+					{
+						encoded.append(" ");
+					}
+					continue;
+				}
+				
+				
 				String start = adjusted.substring(i-1,i);
 				String finish = encodeConversionTable.get(start);
 				encoded.append(finish);
@@ -1085,7 +1097,6 @@ public class EvaluationService {
 				}
 			}
 			
-			// split grouping of letters to 5
 			return encoded.toString();
 		}
 
