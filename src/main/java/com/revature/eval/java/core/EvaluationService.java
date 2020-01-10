@@ -1319,6 +1319,17 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
+		boolean matchPunct = string.matches("\\p{Punct}");
+		if(matchPunct) return false; 
+		
+		boolean matchDigits = string.matches("[a-z]+");
+		boolean attempt = string.contains("a");
+		
+		if((matchDigits) || (attempt))
+		{
+			System.out.println("Letters invalidate.");
+			return false;
+		}
 		
 		// subtract 9? what is that and how to use with luhn formula?
 		
