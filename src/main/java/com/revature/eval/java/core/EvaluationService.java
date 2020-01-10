@@ -1180,7 +1180,7 @@ public class EvaluationService {
 
 			String currentDigit = adjusted.substring(i, i + 1);
 			
-			if(currentDigit.matches("[^0-9]"))
+			if(currentDigit.matches("[^0-9X]"))
 			{
 				System.out.println("Invalid character detected.");
 				return false;
