@@ -1091,7 +1091,7 @@ public class EvaluationService {
 				String start = adjusted.substring(i-1,i);
 				String finish = encodeConversionTable.get(start);
 				encoded.append(finish);
-				if(i % 5 == 0)
+				if((i % 5 == 0) && (i + 1 < adjusted.length()))
 				{
 					encoded.append(" ");
 				}
