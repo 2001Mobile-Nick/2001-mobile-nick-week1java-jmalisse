@@ -1032,16 +1032,29 @@ public class EvaluationService {
 	 */
 	static class AtbashCipher {
 		
-		private static Map<String, String> conversionTable = new HashMap<String, String>();
+		private static Map<String, String> encodeConversionTable = new HashMap<String, String>();
 		// load frontTable with forwardConversion strings
 		{ 	
-			conversionTable.put("A", "Z");  conversionTable.put("A" , "Z"); conversionTable.put("B" , "Y"); conversionTable.put("C" , "X"); 
-			conversionTable.put("D" , "W"); conversionTable.put("E" , "V"); conversionTable.put("F" , "U"); conversionTable.put("G" , "T");
-			conversionTable.put("H" , "S"); conversionTable.put("I" , "R"); conversionTable.put("J" , "Q"); conversionTable.put("K" , "P"); 
-			conversionTable.put("L" , "O"); conversionTable.put("M" , "N"); conversionTable.put("N" , "M"); conversionTable.put("O" , "L"); conversionTable.put("P" , "K"); 
-			conversionTable.put("Q" , "J"); conversionTable.put("R" , "I"); conversionTable.put("S" , "H"); conversionTable.put("T" , "G"); conversionTable.put("U" , "F"); 
-			conversionTable.put("V" , "E"); conversionTable.put("W" , "D"); conversionTable.put("X" , "C"); conversionTable.put("Y" , "B"); conversionTable.put("Z" , "A");
+			encodeConversionTable.put("A" , "Z"); encodeConversionTable.put("B" , "Y"); encodeConversionTable.put("C" , "X"); 
+			encodeConversionTable.put("D" , "W"); encodeConversionTable.put("E" , "V"); encodeConversionTable.put("F" , "U"); encodeConversionTable.put("G" , "T");
+			encodeConversionTable.put("H" , "S"); encodeConversionTable.put("I" , "R"); encodeConversionTable.put("J" , "Q"); encodeConversionTable.put("K" , "P"); 
+			encodeConversionTable.put("L" , "O"); encodeConversionTable.put("M" , "N"); encodeConversionTable.put("N" , "M"); encodeConversionTable.put("O" , "L"); encodeConversionTable.put("P" , "K"); 
+			encodeConversionTable.put("Q" , "J"); encodeConversionTable.put("R" , "I"); encodeConversionTable.put("S" , "H"); encodeConversionTable.put("T" , "G"); encodeConversionTable.put("U" , "F"); 
+			encodeConversionTable.put("V" , "E"); encodeConversionTable.put("W" , "D"); encodeConversionTable.put("X" , "C"); encodeConversionTable.put("Y" , "B"); encodeConversionTable.put("Z" , "A");
 		}
+		
+		private static Map<String, String> decodeConversionTable = new HashMap<String, String>();
+		// load backTable with reverseConversion strings
+		{ 	
+			decodeConversionTable.put("Z" , "A"); decodeConversionTable.put("Y" , "B"); decodeConversionTable.put("X" , "C"); 
+			decodeConversionTable.put("W" , "D"); decodeConversionTable.put("V" , "E"); decodeConversionTable.put("U" , "F"); decodeConversionTable.put("T" , "G");
+			decodeConversionTable.put("S" , "H"); decodeConversionTable.put("R" , "I"); decodeConversionTable.put("Q" , "J"); decodeConversionTable.put("P" , "K"); 
+			decodeConversionTable.put("O" , "L"); decodeConversionTable.put("N" , "M"); decodeConversionTable.put("M" , "N"); decodeConversionTable.put("L" , "O"); decodeConversionTable.put("K" , "P"); 
+			decodeConversionTable.put("J" , "Q"); decodeConversionTable.put("I" , "R"); decodeConversionTable.put("H" , "S"); decodeConversionTable.put("G" , "T"); decodeConversionTable.put("F" , "U"); 
+			decodeConversionTable.put("E" , "V"); decodeConversionTable.put("D" , "W"); decodeConversionTable.put("C" , "X"); decodeConversionTable.put("B" , "Y"); decodeConversionTable.put("A" , "Z");
+		}
+		
+		
 
 		/**
 		 * Question 13
@@ -1050,7 +1063,17 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
+			// set all to lowercase, remove whitespace, and remove punctuation from input string
+			String stringLC = string.toLowerCase();
+			StringBuilder adjusted = new StringBuilder(stringLC.replaceAll("\\p{Punct}|\\s", ""));
+			
+			for(int i = 0; i < string.length(); i++)
+			{
+				String start = string.substring(i,i+1);
+				String finish = encodeConversionTable.get(start.toLowerCase());
+			}
+
+			
 			return null;
 		}
 
