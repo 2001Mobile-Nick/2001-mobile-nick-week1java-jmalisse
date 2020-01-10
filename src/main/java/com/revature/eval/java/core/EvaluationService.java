@@ -178,8 +178,7 @@ public class EvaluationService {
 				System.out.println("Question not yet implemented.");
 				break;
 			case 20:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				eval.solveWordProblem(scan.nextLine());
 				break;
 			}
 		} while (!exit);
@@ -1354,7 +1353,69 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		String[] words = string.replaceAll("\\?","").split("\\s");
+		
+		// skip first 2 entries because all use cases require functionality of program to have 'What is' preceeding 
+		// 'What is' is irrelevant
+		
+		Integer numberOne = new Integer(0);
+		
+		Integer numberTwo = new Integer(0);
+		
+		// identify numbers
+		for(int i = 2; i < words.length; i++)
+		{
+			boolean match = words[i].matches(".*\\d.*");
+			if(match)
+			{
+				System.out.println("Evaluated " + words[i] + " as a number.");
+				
+				System.out.println("Checking if negative.");
+				
+				boolean matchNegative = words[i].substring(0,1).matches("(-)");
+				
+				if(matchNegative)
+				{
+					System.out.println("Identified number is negative.");
+				}
+				
+				if(numberOne.intValue() == Integer.valueOf(0))
+				{
+					try
+					{
+						numberOne = Integer.parseInt(words[i]);
+					}
+					catch(IllegalArgumentException ex)
+					{
+						System.out.println("Argument mismatch.");
+					}
+				}
+				else
+				{
+					try
+					{
+						numberTwo = Integer.parseInt(words[i]);
+					}
+					catch(IllegalArgumentException ex)
+					{
+						System.out.println("Argument mismatch.");
+					}
+				}
+/*				if(words[i].substring(0,1).matches("(-)"))
+				{
+					System.out.println(words[i] + " is a negative number.");
+					negative = true;
+				}*/
+			}
+			
+			//negative = false;
+			/*int digitSize = words[i].length();
+			System.out.println("DigitSize of detected negative is: " + digitSize);*/
+		}
+		
+		System.out.println("Number 1 is " + numberOne);
+		System.out.println("Number 2 is " + numberTwo);
+		
 		return 0;
 	}
 
