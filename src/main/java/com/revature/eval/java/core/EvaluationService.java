@@ -1074,16 +1074,18 @@ public class EvaluationService {
 			StringBuilder adjusted = new StringBuilder(stringLC.replaceAll("\\p{Punct}|\\s", ""));
 			StringBuilder encoded = new StringBuilder("");
 			
-			for(int i = 0; i < adjusted.length(); i++)
+			for(int i = 1; i <= adjusted.length(); i++)
 			{
-				String start = adjusted.substring(i,i+1);
+				String start = adjusted.substring(i-1,i);
 				String finish = encodeConversionTable.get(start);
 				encoded.append(finish);
+				if(i % 5 == 0)
+				{
+					encoded.append(" ");
+				}
 			}
 			
-			
-
-			
+			// split grouping of letters to 5
 			return encoded.toString();
 		}
 
