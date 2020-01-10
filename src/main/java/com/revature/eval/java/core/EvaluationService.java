@@ -138,16 +138,13 @@ public class EvaluationService {
 				eval.isArmstrongNumber(scan.nextInt());
 				break;
 			case 10:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				System.out.println("Question resolved outside Driver.");
 				break;
 			case 11:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				System.out.println("Question resolved outside Driver.");
 				break;
 			case 12:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				System.out.println("Question resolved outside Driver.");
 				break;
 			case 13:
 				// Call evalService Question 13 encode
@@ -160,13 +157,13 @@ public class EvaluationService {
 				AtbashCipher.decode(scan.nextLine());
 				break;
 			case 15:
-				// TODO implement question call
+				// Call evalService Question 15 isbn
 				System.out.println("Input number set to test is valid ISBN format: ");
 				eval.isValidIsbn(scan.nextLine());
 				break;
 			case 16:
-				// TODO implement question call
-				System.out.println("Question not yet implemented.");
+				// Call evalService Question 16 isPangram
+				eval.isPangram(scan.nextLine());
 				break;
 			case 17:
 				// TODO implement question call
@@ -1224,8 +1221,34 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		// if an english pangram must contain one of every lower case letter in this example
+		// any count less than 26 is immediately false
+		if(string.length() < 26) return false; 
+				
+		boolean[] checked = new boolean[26];
+		
+		int index = 0;
+		
+		for(int i = 0; i < string.length(); i++)
+		{
+			// compares the difference between a and other letter to received the difference as an index
+			// a (97) - a (97) -> 97 - 97 = 0
+			// so the 0 index of the bool check must be true because 'a' is being checked
+			// etc for all other letters - needs different notation to check for other punctuation or upper case
+			if('a' <= string.charAt(i) && string.charAt(i) <= 'z') index = string.charAt(i) - 'a';
+			
+			checked[index] = true;
+		}
+		
+		for(int i = 0; i < 25; i++)
+		{
+			if(checked[i] == false)
+			{
+				return false;
+			}
+		}
+			
+		return true;
 	}
 
 	/**
