@@ -790,7 +790,12 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		// first is to determine length of the substring of numbers entered
+		// then, take each number in the integer - stored as a substring, and convert to
+		// its own int variable
+		// raise each to the value of (itself) ^ (number of digits) and add to the total
+		// sum
+		// if total sum == entered number then number is armstrong number
 
 		String numberAsString = String.valueOf(input);
 		int numberCount = numberAsString.length();
@@ -798,25 +803,17 @@ public class EvaluationService {
 		
 		for(int i = 0; i < numberAsString.length(); i++) 
 		{
-			int num = Integer.parseInt(numberAsString.substring(i,i+1));
-			System.out.println("parsed num: " + num);
-			System.out.println();
-			num = num * numberCount; // this is just squaring, not exponent
-			// need to change to Math.pow
-			//num = Math.pow(num, numberCount);
+			Double num = (double) Integer.parseInt(numberAsString.substring(i,i+1));
+			System.out.println("parsed num: " + num.intValue() + "\n");
+			num = Math.pow(num, numberCount);
 			totalSum += num;
-			System.out.println(num + " added to totalSum.");
-			System.out.println("totalSum now: " + totalSum);
+			System.out.println(num.intValue() + " added to totalSum.");
+			System.out.println("totalSum now: " + totalSum + "\n");
 		}
 		
-		System.out.println("Input number: " + input);
-		System.out.println("Calculated number: " + totalSum);
-		// first is to determine length of the substring of numbers entered
-		// then, take each number in the integer - stored as a substring, and convert to
-		// its own int variable
-		// raise each to the value of (itself) ^ (number of digits) and add to the total
-		// sum
-		// if total sum == entered number then number is armstrong number
+		System.out.println("Input number: " + input + "\n");
+		System.out.println("Calculated number: " + totalSum + "\n");
+
 		return (totalSum == input) ? true : false;
 	}
 
