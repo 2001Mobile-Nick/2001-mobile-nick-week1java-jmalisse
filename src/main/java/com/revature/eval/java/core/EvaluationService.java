@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 
 class CustomException extends Exception // TODO research warning
 {
-	CustomException(String message) {
+	CustomException(String message)
+	{
 		super(message);
 	}
 }
@@ -958,7 +959,51 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int MAX_SIZE = 105923;
+		
+		if(i == 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		// sieve of eratosthenes is easiest method i understand
+		// which uses a boolean array whose entries will only be true at the end of the run for entries whose index' represent prime numbers
+		// using multiples/squares to discern which index' cannot be primes because they are multiples of the iteration int in the loop
+		
+		boolean[] primes = new boolean[MAX_SIZE];
+		List<Integer> resultPrimes = new ArrayList<Integer>();
+		
+		// set all to true
+		for(int j = 0; j < MAX_SIZE; j++)
+		{
+			primes[j] = true;
+		}
+		
+		for(int j = 2; j * j < MAX_SIZE; j++)
+		{
+			// change primes[index of j] to false if multiple factor found after all iterations
+			// need to retest on each loop because we are testing both the prime factors and the squares
+			if(primes[j] == true)
+			{
+				for(int k = j * j; k < MAX_SIZE; k += j)
+				{
+					// cannot be prime because this location is essentially a square of the index value used
+					// being a square means it has multiple factors beyond 1 and itself
+					primes[k] = false;
+				}
+			}
+		}
+		
+		// obtain list of primes based on bool array index' that are still true at this point
+		for(int j = 2; j < MAX_SIZE; j++)
+		{
+			if(primes[j] == true) resultPrimes.add(j);
+		}
+		
+		// search list for Nth prime
+		
+		
+		return resultPrimes.get(i-1);
 	}
 
 	/**
