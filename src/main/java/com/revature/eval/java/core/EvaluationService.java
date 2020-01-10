@@ -1362,6 +1362,8 @@ public class EvaluationService {
 		
 		Integer numberTwo = new Integer(0);
 		
+		int action = 0;
+		
 		// identify numbers
 		for(int i = 2; i < words.length; i++)
 		{
@@ -1400,18 +1402,43 @@ public class EvaluationService {
 					{
 						System.out.println("Argument mismatch.");
 					}
-				}
-/*				if(words[i].substring(0,1).matches("(-)"))
-				{
-					System.out.println(words[i] + " is a negative number.");
-					negative = true;
-				}*/
+				}			
 			}
 			
-			//negative = false;
-			/*int digitSize = words[i].length();
-			System.out.println("DigitSize of detected negative is: " + digitSize);*/
+			if(words[i].contains("plus"))
+			{
+				System.out.println("Action is addition.");
+				action = 1;
+			}
+			else if(words[i].contains("minus"))
+			{
+				System.out.println("Action is subtraction.");
+				action = 2;
+			}
+			else if(words[i].contains("multiplied"))
+			{
+				System.out.println("Action is multiplication.");
+				action = 3;
+			}
+			else if(words[i].contains("divided"))
+			{
+				System.out.println("Action is division.");
+				action = 4;
+			}
 		}
+		
+		switch(action)
+		{
+		case 1:
+			return numberOne + numberTwo;
+		case 2:
+			return numberOne - numberTwo;
+		case 3:
+			return numberOne * numberTwo;
+		case 4:
+			return numberOne / numberTwo;
+		}
+		
 		
 		System.out.println("Number 1 is " + numberOne);
 		System.out.println("Number 2 is " + numberTwo);
