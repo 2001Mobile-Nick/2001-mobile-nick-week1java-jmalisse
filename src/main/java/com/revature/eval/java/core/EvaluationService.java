@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -828,8 +829,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// arraylist to store factors
+		List<Long> factorList = new ArrayList<Long>();
+		
+		long num = l;
+		
+		// check each number through to "l" - skip 0 and 1 for obvious reasons
+		for(int i = 2; i <= num; i++)
+		{
+			// check if the current num is divisble by 2 (if it is it cannot be a 
+			// prime, bc it is divisible by something other than 1 and itself
+			// (2 is the only "even" prime number applicable)
+			while(num % i == 0)
+			{
+				// dont entirely understand the math going on at this bit without visual representation
+				// but i dont necessarily need to understand the math to know what it is doing
+				factorList.add((long) i);
+				num /= i;
+			}
+		}
+		
+		return factorList;
 	}
 
 	/**
