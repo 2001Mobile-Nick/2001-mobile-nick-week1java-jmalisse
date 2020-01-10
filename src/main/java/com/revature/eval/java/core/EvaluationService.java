@@ -879,6 +879,10 @@ public class EvaluationService {
 	 * quick brown fox jumps over the lazy dog.
 	 */
 	static class RotationalCipher {
+		
+		public static final String ALPHABETLC = "abcdefghijklmnopqrstuvwxyz";
+		public static final String ALPHABETUC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		
 		private int key;
 
 		public RotationalCipher(int key) {
@@ -887,8 +891,55 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			// take in the string and use a stringbuilder to adjust individual letters
+			// increment through stringbuilder index, one character at a time, and ROT the character
+			// HOWEVER, if the character matches either any digit [0-9] or | any \\p{Punct} then skip the digit
+			StringBuilder resultString = new StringBuilder("");
+			
+			Pattern pattern = Pattern.compile("\\p{Punct}|[0-9]|\\s");
+			Matcher matcher;
+			
+			// iterate through each character in the string
+			for(int i = 0; i < string.length(); i++)
+			{
+				matcher = pattern.matcher("" + string.charAt(i));
+				// check first if the current character is punctuation
+				// if so, simply append it to the stringbuilder and continue loop
+				if(matcher.find())
+				{
+					resultString.append(string.charAt(i));
+					continue;
+				}
+				
+				// find current character and check uppercase or lowercase
+				if(Character.isUpperCase(string.charAt(i)))
+				{
+					// find the current character position in the alphabet (uppercase)
+					int characterPos = ALPHABETUC.indexOf(string.charAt(i));
+					// find the new value that the letter would be after the shift
+					// modulo will return the remainder which is the same as wrapping around the alphabet (but the string isnt infinitely wrapping)
+					int keyValue = (this.key + characterPos) % 26;
+					// set a character to this new letter value
+					char newLetter = ALPHABETUC.charAt(keyValue);
+					// append that letter to the stringbuilder
+					resultString.append(newLetter);
+				}
+				else
+				{
+					// find the current character position in the alphabet (uppercase)
+					int characterPos = ALPHABETLC.indexOf(string.charAt(i));
+					// find the new value that the letter would be after the shift
+					// modulo will return the remainder which is the same as wrapping around the alphabet (but the string isnt infinitely wrapping)
+					int keyValue = (this.key + characterPos) % 26;
+					// set a character to this new letter value
+					char newLetter = ALPHABETLC.charAt(keyValue);
+					// append that letter to the stringbuilder
+					resultString.append(newLetter);
+				}
+				
+			}
+
+			return resultString.toString();
 		}
 
 	}
